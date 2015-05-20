@@ -6,7 +6,7 @@ var multipart = require('connect-multiparty');
 var authorRouter = express.Router();
 
 authorRouter.route('/')
-  .get(CheckAdmin(), controller.getAll)
+  .get(controller.getAll)
   .post(CheckAdmin(), controller.createOne);
 
 authorRouter.route('/:author')

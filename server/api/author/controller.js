@@ -18,6 +18,7 @@ cloudinary.config({
 var controller = {
 
   getAll: function(req, res, next) {
+    console.log(req, "here");
     Author.find()
     .lean()
     .exec(function(err, authors) {
@@ -52,7 +53,15 @@ var controller = {
   },
 
   removeOne: function(req, res, next) {
-    res.send({name: 'yo'});
+    Author.findOneAndRemove({username: req.body.username})
+      .exec(function(err, author){
+        if(err){
+          res.json(err);
+        }
+        if(author){
+            res.status(200).send({"data": "ok"});
+          };
+      });
   },
 
   login: function({author: { _id, role }}, res, next) {
